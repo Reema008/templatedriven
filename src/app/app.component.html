@@ -1,0 +1,175 @@
+<div style="text-align:center">
+  <h1>
+     {{ title }}
+  </h1>
+<div class="formstyle">
+  <form name="form" (ngSubmit)=" onSubmit(f)" #f="ngForm" novalidate>
+
+
+    Full Name:<span style="margin-left:11.3em">Date of Birth:</span><br>
+
+
+<input name="name" required minlength="4" [(ngModel)]="data.fullname" #name="ngModel" >
+<span style="margin-left:5em">
+ <input type="date" name="dob" required [(ngModel)]="data.dateofbirth" #dob="ngModel"></span><br>
+
+
+ <div *ngIf="name.invalid && (name.dirty || name.touched)">
+
+<div *ngIf="name.errors.required" class="error">
+  Name is required.
+</div>
+<div *ngIf="name.errors.minlength" class="error">
+  Name must be at least 4 characters long.
+</div>
+
+</div>
+
+
+
+<div *ngIf="dob.invalid && (dob.dirty || dob.touched)">
+
+<div *ngIf="dob.errors.required" class="error">
+    <span style="margin-left:16em">
+Date of Birth is required.</span>
+
+</div>
+
+</div><br>
+Email:<span style="margin-left:13.1em">Phone Number:</span><br>
+
+
+ <input type="email" name="mail" required minlength="10" 
+ [(ngModel)]="data.mailid" #mail="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+ <span style="margin-left:5em">
+ <input type="number" name="phnum" required [(ngModel)]="data.phonenumber" #phnum="ngModel" pattern="[0-9]{10}">
+</span><br>
+
+
+ <div *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+
+<div *ngIf="mail.errors.required" class="error">
+  Mail is required.
+</div>
+<div *ngIf="mail.errors.pattern" class="error">
+    Invalid Mail.
+  </div>
+<div *ngIf="mail.errors.minlength" class="error">
+  Mail must be at least 10 characters long.
+</div>
+
+</div>
+
+
+<div *ngIf="phnum.invalid && (phnum.dirty || phnum.touched)">
+
+    <div *ngIf="phnum.errors.required" class="error">
+        <span style="margin-left:16em">
+      Phone Number is required.</span>
+    </div>
+    <div *ngIf="phnum.errors.pattern" class="error">
+        <span style="margin-left:16em">
+        Invalid Phone Number.</span>
+      </div>
+    
+    </div>
+
+ <br>
+
+
+
+ Password:<span style="margin-left:12em">Tell us about yourself:</span><br>
+
+
+
+ <input type="password" name="pwrd" required minlength="10" [(ngModel)]="data.passwordset" #pwrd="ngModel"><br>
+ <span style="margin-left:16em">
+    <textarea cols="20" rows="2" style="border-style:solid;
+    border-width: 3px;
+    border-color: grey"name="about" 
+     required [(ngModel)]="data.aboutu" #about="ngModel"></textarea></span><br>
+
+
+     <div  *ngIf="pwrd.invalid && (pwrd.dirty || pwrd.touched)">
+
+        <div *ngIf="pwrd.errors.required" class="error">
+          Password is required.
+        </div>
+        <div *ngIf="pwrd.errors.minlength" class="error">
+         Password must be at least 10 characters long.
+       </div>
+       </div>
+       
+
+
+       <div  *ngIf="about.invalid && (about.dirty || about.touched)">
+       
+         <div *ngIf="about.errors.required" class="error">
+           <span style="margin-left:16.2em">
+           Describe yourself.</span>
+         </div>
+         
+       </div>
+     
+     
+       <br>
+       State:&nbsp;<select name="states" required [(ngModel)]="data.state" #states="ngModel">
+          <option value="Telangana">Telangana</option>
+          <option value="Andhra Pradesh">Andhra Pradesh</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="Karnataka">Karnataka</option>
+        </select><span style="margin-left:6em">
+        <input type="radio" name="gen" value="male" 
+        required [(ngModel)]="data.gender" #gen="ngModel"> Male
+        <input type="radio" name="gen" value="female" 
+        required [(ngModel)]="data.gender" #gen="ngModel"> Female</span><br>
+    
+    <div *ngIf="states.invalid && (states.dirty || states.touched)">
+        <div *ngIf="states.errors.required" class="error">
+          Select your state.</div>
+    </div>
+    
+    
+        <div  *ngIf="gen.invalid && (gen.dirty || gen.touched)">
+    
+      <div *ngIf="gen.errors.required" class="error">
+        <span style="margin-left:16.2em">
+        Gender is required.</span>
+      </div>
+      
+    </div><br>
+  <input type="checkbox" name="subscribe" value="ifyes">I want to receive email about updates to website
+  <br><input type="checkbox" name="agreement" value="agree" required [(ngModel)]="data.accept" #agreement="ngModel">
+  I accept the <a href="Terms and Conditions">Terms and Conditions</a>.
+  <br>
+
+  <div *ngIf="agreement.invalid && (agreement.dirty || agreement.touched)">
+      <div *ngIf="agreement.errors.required" class="error">
+        Accept to continue...</div>
+  </div>
+  <br><br>
+  <div style="text-align: center"><button class="button" [disabled]="f.form.pristine || f.form.invalid">Register</button></div>
+  
+  </form>
+</div>
+      
+
+<table class="table">
+  <tbody  *ngFor="let item of array"><hr><br>
+      <tr>Name : {{item.fullname}}</tr>
+      <tr>Date of Birth : {{item.dateofbirth}}</tr>
+      <tr>Email : {{item.mailid}}</tr>
+      <tr>Phone Number : {{item.phonenumber}}</tr>
+      <tr>Password : {{item.passwordset}}</tr>
+      <tr>About You : {{item.aboutu}}</tr>
+      <tr>State : {{item.state}}</tr>
+      <tr>Gender : {{item.gender}}</tr>
+      <tr>Terms and conditions : {{item.accept}}</tr><br><hr>
+  </tbody>
+</table>
+
+</div>
+
+
+<router-outlet></router-outlet>
